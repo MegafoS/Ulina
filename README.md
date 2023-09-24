@@ -27,9 +27,13 @@ $ source venv/bin/activate
 $ pip install -r ./requirements.txt
 $ psql < schema.sql
 ```
-5. Sovellus on nyt valmiina käytettäväksi komennolla:
+5. Suorita uudella terminaalilla komento:
+```bash
+$ start-pg.sh
+```
+6. Sovellus on nyt valmiina käytettäväksi alkuperäisellä terminaanilla komennolla: 
 ```bash
 $ flask run
 ```
 ### Välipalautus 2
-Tällä hetkellä sovelluksessa voi luoda uuden tunnuksen ja kirjautua vanhalle tunnukselle. Etusivulla näkyvät kaikki aiheet, joita on tällä hetkellä vain kolme, sekä sovellukseen lähetetyt viestit. Voi olla, että laitan etusivulla jokaiseen viestiin näkymään mihin aiheeseen viesti on lähetetty, tai että jokaisen aihenapin alla lukee osa viesteistä, jotka niihin aiheisiin on lähetetty. Aihetta painamalla käyttäjä näkee kaikki viestit, jotka on lähetetty siihen aiheeseen.
+Tällä hetkellä sovelluksessa voi luoda uuden tunnuksen ja kirjautua vanhalle tunnukselle. Etusivulla näkyvät kaikki aiheet, joita on tällä hetkellä vain kolme, sekä sovellukseen lähetetyt viestit. Aihetta painamalla käyttäjä näkee kaikki viestit, jotka on lähetetty siihen aiheeseen.
