@@ -1,22 +1,16 @@
-Keskusteluaiheet:
-<a href="/vapaa">Vapaa</a>
-<a href="/pelit">Pelit</a>
-<a href="/ruoka">Ruoka</a>
-<hr>
-Kaikki viestit:
+Viestien määrä: {{ count }}
 <hr>
 {% for message in messages %}
 <i>Viesti:</i> {{ message[0] }}
 <p>
 <i>Lähettäjä:</i> {{ message[1] }}
 <p>
-<i>Aika:</i> {{ message[2].strftime("%Y-%m-%d %H:%M:%S") }}
+<i>Aika:</i> {{ message[3].strftime("%Y-%m-%d %H:%M:%S") }}
 <hr>
 {% endfor %}
 {% if session.user_id %}
 Olet kirjautunut sisään.
-<a href="/logout">Kirjaudu ulos</a>
+<a href="/new">Lähetä viesti</a> | <a href="/logout">Kirjaudu ulos</a>
 {% else %}
 <a href="/login">Kirjaudu sisään</a>
 {% endif %}
-
