@@ -1,22 +1,70 @@
-Keskusteluaiheet:
-<a href="/vapaa">Vapaa</a>
-<a href="/pelit">Pelit</a>
-<a href="/ruoka">Ruoka</a>
-<hr>
-Kaikki viestit:
-<hr>
-{% for message in messages %}
-<i>Viesti:</i> {{ message[0] }}
-<p>
-<i>Lähettäjä:</i> {{ message[1] }}
-<p>
-<i>Aika:</i> {{ message[2].strftime("%Y-%m-%d %H:%M:%S") }}
-<hr>
-{% endfor %}
+<style>
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 15%;
+      height: 100%;
+      padding: 20px;
+      background-color: #e2e2e2;
+    }
+    .title {
+      text-align: 60%;
+      font-size: 100px;
+      margin-top: 20px;
+      margin-left: 0%;
+      margin-right: 0%;
+      padding: 40px;
+      background-color: #e2e2e2;
+    }
+    .topics {
+      text-align: 60%;
+      font-size: 24px;
+      margin-top: 20px;
+      margin-left: 0%;
+      margin-right: 22%;
+      padding-bottom: 20;
+    }
+    .main-content {
+      margin-left: 22%;
+      margin-right: 5%;
+      padding: 20px;
+    }
+  </style>
+
+<div class="sidebar">
+    <center><h1>Ulina</h1>
+    <h2>Keskusteluaiheet</h2></center>
+    <ul>
+      <li><a href="/vapaa">Vapaa</a></li>
+      <li><a href="/pelit">Pelit</a></li>
+      <li><a href="/ruoka">Ruoka</a></li>
+      <li><a href="/uutiset">Uutiset</a></li>
+      <li><a href="/sarjat_ja_elokuvat">Sarjat ja Elokuvat</a></li>
+    </ul>
+  </div>
+<div class="main-content">
+    <div class = "title">
+        <center><b>Ulina</b></center>
+    </div>
+    <div class = "topics">
+        Keskusteluaiheet: <a href="/vapaa">Vapaa</a> | <a href="/pelit">Pelit</a> | <a href="/ruoka">Ruoka</a> | <a href="/uutiset">Uutiset</a> | <a href="/sarjat_ja_elokuvat">Sarjat ja Elokuvat</a>
+    </div>
+    Kaikki viestit:
+    <hr>
+    {% for message in messages %}
+    <i>Viesti:</i> {{ message[0] }}
+    <p>
+    <i>Lähettäjä:</i> {{ message[1] }}
+    <p>
+    <i>Aika:</i> {{ message[2].strftime("%Y-%m-%d %H:%M:%S") }}
+    <hr>
+    {% endfor %}
 {% if session.user_id %}
 Olet kirjautunut sisään.
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
 <a href="/login">Kirjaudu sisään</a>
 {% endif %}
+</div>
 

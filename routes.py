@@ -11,11 +11,27 @@ def index():
 def new():
     return render_template("new.html")
 
+@app.route("/reply")
+def reply():
+    return render_template("reply.html")
+
 @app.route("/send", methods=["POST"])
 def send():
+    topic = users.session["current_topic"]
     content = request.form["content"]
     if messages.send(content):
-        return redirect("/")
+        return redirect(f"/{topic}")
+    else:
+        return render_template("error.html", message="Viestin lähetys ei onnistunut")
+
+@app.route("/reply_send", methods=["GET"])
+def reply_send():
+    topic = users.session["current_topic"]
+    content = request.form["content"]
+    thread_id = request.args.get('message_id')
+    thread_id = int(thread_id)
+    if messages.reply_send(content, thread_id):
+        return redirect(f"/{topic}")
     else:
         return render_template("error.html", message="Viestin lähetys ei onnistunut")
 
@@ -69,3 +85,15 @@ def topic_2():
     list = messages.get_list()
     if request.method == "GET":
         return render_template("topic_2.html", count=len(list), messages=list)
+@app.route("/uutiset", methods=["GET"])
+def topic_3():
+    users.session["current_topic"]='uutiset'
+    list = messages.get_list()
+    if request.method == "GET":
+        return render_template("topic_3.html", count=len(list), messages=list)
+@app.route("/sarjat_ja_elokuvat", methods=["GET"])
+def topic_4():
+    users.session["current_topic"]='sarjat_ja_elokuvat'
+    list = messages.get_list()
+    if request.method == "GET":
+        return render_template("topic_4.html", count=len(list), messages=list)

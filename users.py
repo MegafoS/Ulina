@@ -12,7 +12,7 @@ def login(username, password):
     else:
         if check_password_hash(user.password, password):
             session["user_id"] = user.id
-            session["current_topic"] = "None"
+            session["current_topic"] = None
             return True
         else:
             return False
