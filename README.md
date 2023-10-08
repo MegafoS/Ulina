@@ -37,3 +37,6 @@ $ flask run
 ```
 ### Välipalautus 2
 Tällä hetkellä sovelluksessa voi luoda uuden tunnuksen ja kirjautua vanhalle tunnukselle. Etusivulla näkyvät kaikki aiheet, joita on tällä hetkellä vain kolme, sekä sovellukseen lähetetyt viestit. Aihetta painamalla käyttäjä näkee kaikki viestit, jotka on lähetetty siihen aiheeseen.
+
+### Välipalautus 3
+Keskusteluaiheita lisätty, ulkonäköä päivitetty ja sivuihin on lisätty linkit muihin sivuihin, jotka mahdollistivat helpomman selaamisen.
