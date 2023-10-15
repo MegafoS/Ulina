@@ -1,46 +1,61 @@
 <style>
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 15%;
-      height: 100%;
-      padding: 20px;
-      background-color: #ff7ef9;
-    }
-    .main-content {
-      margin-left: 22%;
-      padding: 20px;
-    }
-  </style>
-  <div class="sidebar">
-    <center><h1>Ulina</h1>
-    <h2>Keskusteluaiheet</h2></center>
-    <ul>
-      <li><a href="/vapaa">Vapaa</a></li>
-      <li><a href="/pelit">Pelit</a></li>
-      <li><a href="/ruoka">Ruoka</a></li>
-      <li><a href="/uutiset">Uutiset</a></li>
-      <li><a href="/sarjat_ja_elokuvat">Sarjat ja Elokuvat</a></li>
-    </ul>
-  </div>
-  <div class="main-content">
-    <h1>Sarjat ja Elokuvat</h1>
-    <p>Viestien määrä: {{ count }}</p>
-    <hr>
-    {% for message in messages %}
-    <i>Viesti:</i> {{ message[0]}}
-    <p>
-    <i>Lähettäjä:</i> {{ message[1] }}
-    <p>
-    <i>Aika:</i> {{ message[3].strftime("%Y-%m-%d %H:%M:%S") }}
-    <p>
-    <hr>
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 15%;
+    height: 100%;
+    padding: 20px;
+    background-color: #d986ff;
+  }
+  .main-content {
+    margin-left: 22%;
+    padding: 20px;
+  }
+  .reply-content {
+    margin-left: 5%;
+    padding: 20px;
+  }
+</style>
+<div class="sidebar">
+  <center><h1>Ulina</h1>
+  <h2>Keskusteluaiheet</h2></center>
+  <ul>
+    <li><a href="/vapaa">Vapaa</a></li>
+    <li><a href="/pelit">Pelit</a></li>
+    <li><a href="/ruoka">Ruoka</a></li>
+    <li><a href="/uutiset">Uutiset</a></li>
+    <li><a href="/sarjat_ja_elokuvat">Sarjat ja Elokuvat</a></li>
+  </ul>
+</div>
+<div class="main-content">
+  <h1>Sarjat ja Elokuvat</h1>
+  <p>Viestien määrä: {{ count }}</p>
+  {% for message in messages %}
+  <hr>
+  <i>Lähettäjä:</i> {{ message[1] }} &nbsp; | &nbsp; {{ message[3].strftime("%Y-%m-%d %H:%M:%S") }}
+  <p>
+  <i>Vastaus:</i> {{ message[0] }}
+  <p>
+  <a href="{{ url_for('reply_message', message_id=message.id) }}">Vastaa ketjuun</a>
+  <hr>
+  <div class="reply-content">
+    {% for reply in replies %}
+      {% if reply[5] == message[4] %}
+          <hr>
+          <i>Lähettäjä:</i> {{ reply[1] }} &nbsp; | &nbsp; {{ reply[3].strftime("%Y-%m-%d %H:%M:%S") }}
+          <p>
+          <i>Vastaus:</i> {{ reply[0] }}
+          <hr>
+      {% endif %}
     {% endfor %}
-    {% if session.user_id %}
-    Olet kirjautunut sisään.
-    <a href="/new">Lähetä viesti</a> | <a href="/logout">Kirjaudu ulos</a>
-    {% else %}
-    <a href="/login">Kirjaudu sisään</a>
-    {% endif %}
-  </div>
+    </div>
+  {% endfor %}
+  <hr>
+  {% if session.user_id %}
+  Olet kirjautunut sisään.
+  <a href="/new">Lähetä viesti</a> | <a href="/logout">Kirjaudu ulos</a>
+  {% else %}
+  <a href="/login">Kirjaudu sisään</a>
+  {% endif %}
+</div>

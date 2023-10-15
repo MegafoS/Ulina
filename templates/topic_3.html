@@ -12,6 +12,10 @@
       margin-left: 22%;
       padding: 20px;
     }
+    .reply-content {
+      margin-left: 5%;
+      padding: 20px;
+    }
   </style>
   <div class="sidebar">
     <center><h1>Ulina</h1>
@@ -27,16 +31,27 @@
   <div class="main-content">
     <h1>Uutiset</h1>
     <p>Viestien määrä: {{ count }}</p>
-    <hr>
     {% for message in messages %}
-    <i>Viesti:</i> {{ message[0]}}
-    <p>
-    <i>Lähettäjä:</i> {{ message[1] }}
-    <p>
-    <i>Aika:</i> {{ message[3].strftime("%Y-%m-%d %H:%M:%S") }}
-    <p>
     <hr>
+    <i>Lähettäjä:</i> {{ message[1] }} &nbsp; | &nbsp; {{ message[3].strftime("%Y-%m-%d %H:%M:%S") }}
+    <p>
+    <i>Vastaus:</i> {{ message[0] }}
+    <p>
+    <a href="{{ url_for('reply_message', message_id=message.id) }}">Vastaa ketjuun</a>
+    <hr>
+    <div class="reply-content">
+      {% for reply in replies %}
+        {% if reply[5] == message[4] %}
+            <hr>
+            <i>Lähettäjä:</i> {{ reply[1] }} &nbsp; | &nbsp; {{ reply[3].strftime("%Y-%m-%d %H:%M:%S") }}
+            <p>
+            <i>Vastaus:</i> {{ reply[0] }}
+            <hr>
+        {% endif %}
+      {% endfor %}
+      </div>
     {% endfor %}
+    <hr>
     {% if session.user_id %}
     Olet kirjautunut sisään.
     <a href="/new">Lähetä viesti</a> | <a href="/logout">Kirjaudu ulos</a>
