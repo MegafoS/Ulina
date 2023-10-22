@@ -1,6 +1,55 @@
-<form action="/send" method="post">
-Viesti: <br>
-<textarea name="content" rows="3" cols="40"></textarea>
-<br>
-<input type="submit" value="Lähetä">
-</form>
+<style>
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 15%;
+      height: 100%;
+      padding: 20px;
+      background-color: #f0f0f0;
+    }
+  .main-content {
+    margin-left: 22%;
+    padding: 20px;
+  }
+    </style>
+<!DOCTYPE html>
+<html>
+<body>
+    <div class="sidebar">
+      <center><h1>Ulina</h1>
+      <h2>Keskusteluaiheet</h2></center>
+      <ul>
+        <li><a href="/vapaa">Vapaa</a></li>
+        <li><a href="/pelit">Pelit</a></li>
+        <li><a href="/ruoka">Ruoka</a></li>
+        <li><a href="/uutiset">Uutiset</a></li>
+        <li><a href="/sarjat_ja_elokuvat">Sarjat ja Elokuvat</a></li>
+      </ul>
+    </div>
+    <div class="main-content">
+
+    <h1>Etsi viestejä</h1>
+    <form action="/search" method="POST">
+        <label for="user_search">Käyttäjä:</label>
+        <p>
+        <textarea name="user_search" rows="1" cols="40"></textarea>
+        <p>
+        <label for="content_search">Sisältö:</label>
+        <p>
+        <textarea name="content_search" rows="3" cols="40"></textarea>
+        <input type="submit" value="Etsi">
+    </form>
+    <h3>Löydetyt viestit:</h3>
+
+    {% for message in messages %}
+    <hr>
+    <i>Lähettäjä:</i> {{ message[1] }} &nbsp; | &nbsp; {{ message[3].strftime("%Y-%m-%d %H:%M:%S") }} &nbsp; | &nbsp; <i>Aihe:</i> {{ message[2] }}
+    <p>
+    <i>Viesti:</i> {{ message[0] }}
+    <p>
+    <hr>
+    {% endfor %}
+    </div>
+</body>
+</html>

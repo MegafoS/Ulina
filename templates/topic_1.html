@@ -16,9 +16,13 @@
     margin-left: 5%;
     padding: 20px;
   }
+  .keep-black {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
 </style>
 <div class="sidebar">
-  <center><h1>Ulina</h1>
+  <center><h1><a class="keep-black" href="/">Ulina</a></h1>
   <h2>Keskusteluaiheet</h2></center>
   <ul>
     <li><a href="/vapaa">Vapaa</a></li>
@@ -30,22 +34,45 @@
 </div>
 <div class="main-content">
   <h1>Pelit</h1>
-  <p>Viestien määrä: {{ count }}</p>
+  <p>Viestien määrä: {{ count }} &nbsp; | &nbsp; <a href="/search">Etsi viestejä</a></p>
   {% for message in messages %}
   <hr>
-  <i>Lähettäjä:</i> {{ message[1] }} &nbsp; | &nbsp; {{ message[3].strftime("%Y-%m-%d %H:%M:%S") }}
+  <i>Lähettäjä:</i> {{ message[1] }} &nbsp; | &nbsp; {{ message[3].strftime("%Y-%m-%d %H:%M:%S") }} &nbsp; 
+  | &nbsp;<a href="{{ url_for('like_message', message_id=message.id) }}">Yah</a> / <a href="{{ url_for('dislike_message', message_id=message.id) }}">Nah</a> &nbsp; 
+  | &nbsp;
+  {% for vote in votes %}
+    {% if vote[0] == message[5] %}
+    {{ vote[1] }}
+    {% endif %}
+  {% endfor %}
   <p>
-  <i>Vastaus:</i> {{ message[0] }}
+  <i>Viesti:</i> {{ message[0] }}
   <p>
   <a href="{{ url_for('reply_message', message_id=message.id) }}">Vastaa ketjuun</a>
+  {% if message[4] == session.user_id %}
+    <form method="POST" action="{{ url_for('delete_message', message_id=message.id) }}">
+    <button type="submit">Poista viesti</button>
+    </form>
+  {% endif %}
   <hr>
   <div class="reply-content">
     {% for reply in replies %}
-      {% if reply[5] == message[4] %}
+      {% if reply[6] == message[5] %}
           <hr>
-          <i>Lähettäjä:</i> {{ reply[1] }} &nbsp; | &nbsp; {{ reply[3].strftime("%Y-%m-%d %H:%M:%S") }}
+          <i>Lähettäjä:</i> {{ reply[1] }} &nbsp; | &nbsp; {{ reply[3].strftime("%Y-%m-%d %H:%M:%S") }} &nbsp; | &nbsp;<a href="{{ url_for('like_message', message_id=reply.id) }}">Yah</a> / <a href="{{ url_for('dislike_message', message_id=reply.id) }}">Nah</a> &nbsp; 
+          | &nbsp;
+          {% for vote in votes %}
+            {% if vote[0] == reply[5] %}
+            {{ vote[1] }}
+            {% endif %}
+          {% endfor %}
           <p>
           <i>Vastaus:</i> {{ reply[0] }}
+          {% if reply[4] == session.user_id %}
+            <form method="POST" action="{{ url_for('delete_message', message_id=reply.id) }}">
+            <button type="submit">Poista viesti</button>
+            </form>
+          {% endif %}
           <hr>
       {% endif %}
     {% endfor %}
@@ -54,7 +81,7 @@
   <hr>
   {% if session.user_id %}
   Olet kirjautunut sisään.
-  <a href="/new">Lähetä viesti</a> | <a href="/logout">Kirjaudu ulos</a>
+  <a href="/new">Luo uusi ketju</a> | <a href="/logout">Kirjaudu ulos</a>
   {% else %}
   <a href="/login">Kirjaudu sisään</a>
   {% endif %}
