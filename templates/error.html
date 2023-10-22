@@ -1,1 +1,37 @@
-Virhe: {{ message }}
+<style>
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 15%;
+      height: 100%;
+      padding: 20px;
+      background-color: #f0f0f0;
+    }
+    .main-content {
+      margin-left: 22%;
+      padding: 20px;
+    }
+    .reply-content {
+      margin-left: 5%;
+      padding: 20px;
+    }
+    .keep-black {
+      text-decoration: none;
+      color: rgb(0, 0, 0);
+  }
+  </style>
+  <div class="sidebar">
+    <center><h1><a class="keep-black" href="/">Ulina</a></h1>
+    <h2>Keskusteluaiheet</h2></center>
+    <ul>
+      <li><a href="/vapaa">Vapaa</a></li>
+      <li><a href="/pelit">Pelit</a></li>
+      <li><a href="/ruoka">Ruoka</a></li>
+      <li><a href="/uutiset">Uutiset</a></li>
+      <li><a href="/sarjat_ja_elokuvat">Sarjat ja Elokuvat</a></li>
+    </ul>
+  </div>
+  <div class="main-content">
+    Virhe: {{ message }}
+    </div>
