@@ -40,3 +40,13 @@ Tällä hetkellä sovelluksessa voi luoda uuden tunnuksen ja kirjautua vanhalle 
 
 ### Välipalautus 3
 Keskusteluaiheita lisätty, ulkonäköä päivitetty ja sivuihin on lisätty linkit muihin sivuihin, jotka mahdollistivat helpomman selaamisen.
+
+### Lopullinen palautus
+Sivupalkissa olevaa "Ulina" tekstiä painamalla käyttäjä pääsee etusivulle. Ketjut ja niihin kuuluvat viestit on eroteltu. Käyttäjä voi luoda uuden ketjun, tai vastata jo olemassa olevaan ketjuun, jolloin viesti ilmestyy ketjun loppuun. Käyttäjä voi poistaa oman viestinsä, jolloin se siirretään ```messages``` pöydästä ```deleted_messages``` pöytään ja poistetaan ```messages``` pöydästä. Käyttäjä voi myös antaa "Yah" tai "Nah" äänensä viestille. Käyttäjä voi antaa vain yhden äänen per viesti. Käyttäjä voi etsiä viestejä käyttäjän nimen tai viestin sisällön perusteella.
+
+Huomattuja bugeja / puutteita:
+- Kun käyttäjä poistaa ketjun jossa on vastauksia, ketjun vastauksia ei lisätä ```deleted_messages``` pöytään eikä niitä poisteta ```messages``` pöydästä.
+- "Nah" äänet eivät vähennä viestin tulosta, niin kuin niiden oli tarkoitus. Sen sijaan ohjelma laskee vain "Yah" äänet.
+- Käyttäjä voi luoda käyttötunnuksen, jonka käyttäjätunnus tai salasana on tyhjä merkkijono.
+- Käyttäjä voi luoda tyhjän ketjun tai lähettää tyhjän viestin.
+- CSRF haavoittuvuus
